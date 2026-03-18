@@ -3,57 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salami Matcher | প্রিমিয়াম চ্যালেঞ্জ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;600;700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>CYBER SALAMI | রহস্যময় চ্যালেঞ্জ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Hind+Siliguri:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="bg-animate"></div>
+<div class="bg-overlay"></div>
 
-    <div class="glass-card">
-        <div id="start-screen" class="step active">
-            <h1 class="logo-text">SALAMI <span>PRO</span></h1>
-            <p>আমাদের পছন্দ কতটা মিলে? পরীক্ষা করো!</p>
-            <div class="input-container">
-                <input type="text" id="userName" placeholder="তোমার নাম">
-            </div>
-            <button class="glow-btn" onclick="nextStep('q-screen')">শুরু করো</button>
+<div class="main-frame">
+    <div id="start-node" class="node active">
+        <h1 class="cyber-title">SYSTEM <span>INITIALIZING...</span></h1>
+        <p class="cyber-p">সালামি ডাটাবেজে প্রবেশ করতে আপনার নাম দিন।</p>
+        <div class="cyber-input-wrap">
+            <input type="text" id="userName" placeholder="ACCESS NAME" autocomplete="off">
         </div>
-
-        <div id="q-screen" class="step">
-            <div class="progress-bar"><div id="progress"></div></div>
-            
-            <div id="q1" class="question-box">
-                <h2>১. তোমার সবচেয়ে প্রিয় খাবার কী?</h2>
-                <input type="text" id="ans1" placeholder="যেমন: বিরিয়ানি, কাচ্চি...">
-                <button class="next-btn" onclick="showNextQ(2)">পরবর্তী</button>
-            </div>
-
-            <div id="q2" class="question-box" style="display:none;">
-                <h2>২. তোমার জন্ম কোন মাসে?</h2>
-                <input type="text" id="ans2" placeholder="মাসের নাম লেখো...">
-                <button class="next-btn" onclick="showNextQ(3)">পরবর্তী</button>
-            </div>
-
-            <div id="q3" class="question-box" style="display:none;">
-                <h2>৩. আমাকে তোমার কেমন মনে হয়?</h2>
-                <textarea id="ans3" placeholder="এক কথায় উত্তর দাও..."></textarea>
-                <button class="glow-btn" onclick="calculateMatch()">সালামি চেক করো 🧧</button>
-            </div>
-        </div>
-
-        <div id="result-screen" class="step">
-            <h2 id="match-status">ম্যাচিং রেজাল্ট</h2>
-            <div class="salami-circle">
-                <span class="currency">৳</span>
-                <span id="final-amount">০</span>
-            </div>
-            <p id="feedback-msg" class="feedback"></p>
-            <button class="reset-btn" onclick="location.reload()">আবার চেষ্টা করো</button>
-        </div>
+        <button class="cyber-btn" onclick="startSystem()">ENTER SYSTEM</button>
     </div>
 
-    <script src="script.js"></script>
+    <div id="q1-node" class="node">
+        <div class="scan-line"></div>
+        <h2 class="q-text">আপনার প্রিয় খাবার কী?</h2>
+        <input type="text" id="ans1" class="cyber-field" placeholder="টাইপ করুন...">
+        <button class="next-btn" onclick="nextStep('q2-node')">NEXT >> </button>
+    </div>
+
+    <div id="q2-node" class="node">
+        <div class="scan-line"></div>
+        <h2 class="q-text">আপনার জন্ম কোন মাসে?</h2>
+        <input type="text" id="ans2" class="cyber-field" placeholder="মাসের নাম...">
+        <button class="next-btn" onclick="nextStep('q3-node')">NEXT >> </button>
+    </div>
+
+    <div id="q3-node" class="node">
+        <div class="scan-line"></div>
+        <h2 class="q-text">আমাকে আপনার কাছে কেমন মনে হয়?</h2>
+        <textarea id="ans3" class="cyber-field" placeholder="সত্য কথা লিখুন..."></textarea>
+        <button class="cyber-btn-gold" onclick="processResult()">CALCULATE MATCH</button>
+    </div>
+
+    <div id="result-node" class="node">
+        <div class="glow-bg"></div>
+        <h1 id="status-tag">ANALYSIS COMPLETE</h1>
+        <div class="salami-display">
+            <span class="tk-symbol">৳</span>
+            <span id="final-cash">0</span>
+        </div>
+        <div id="final-msg" class="msg-box"></div>
+        <button class="reboot-btn" onclick="location.reload()">REBOOT SYSTEM</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
