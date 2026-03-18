@@ -3,61 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EID SALAMI | দ্য আল্টিমেট চ্যালেঞ্জ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;500;700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Salami Matcher | প্রিমিয়াম চ্যালেঞ্জ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;600;700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="neon-circle"></div>
-    <div class="neon-circle-2"></div>
+    <div class="bg-animate"></div>
 
     <div class="glass-card">
-        <div id="setup-step" class="step active">
-            <h1 class="glitch">EID SALAMI</h1>
-            <p class="subtitle">সালামি পাওয়ার আগে প্রমাণ দাও তুমি আমাকে চেনো!</p>
-            <div class="input-box">
-                <input type="text" id="userName" required>
-                <span>তোমার নাম লেখো</span>
+        <div id="start-screen" class="step active">
+            <h1 class="logo-text">SALAMI <span>PRO</span></h1>
+            <p>আমাদের পছন্দ কতটা মিলে? পরীক্ষা করো!</p>
+            <div class="input-container">
+                <input type="text" id="userName" placeholder="তোমার নাম">
             </div>
-            <button class="next-btn" onclick="goToStep('step-1')">শুরু করি →</button>
+            <button class="glow-btn" onclick="nextStep('q-screen')">শুরু করো</button>
         </div>
 
-        <div id="step-1" class="step">
-            <h2 class="q-title">১. আমার প্রিয় খাবার কী?</h2>
-            <div class="input-box">
-                <textarea id="ans1" placeholder="তোমার উত্তর টাইপ করো..."></textarea>
+        <div id="q-screen" class="step">
+            <div class="progress-bar"><div id="progress"></div></div>
+            
+            <div id="q1" class="question-box">
+                <h2>১. তোমার সবচেয়ে প্রিয় খাবার কী?</h2>
+                <input type="text" id="ans1" placeholder="যেমন: বিরিয়ানি, কাচ্চি...">
+                <button class="next-btn" onclick="showNextQ(2)">পরবর্তী</button>
             </div>
-            <button class="next-btn" onclick="goToStep('step-2')">পরের প্রশ্ন</button>
-        </div>
 
-        <div id="step-2" class="step">
-            <h2 class="q-title">২. আমার জন্মদিন কোন মাসে?</h2>
-            <div class="input-box">
+            <div id="q2" class="question-box" style="display:none;">
+                <h2>২. তোমার জন্ম কোন মাসে?</h2>
                 <input type="text" id="ans2" placeholder="মাসের নাম লেখো...">
+                <button class="next-btn" onclick="showNextQ(3)">পরবর্তী</button>
             </div>
-            <button class="next-btn" onclick="goToStep('step-3')">শেষ প্রশ্ন</button>
+
+            <div id="q3" class="question-box" style="display:none;">
+                <h2>৩. আমাকে তোমার কেমন মনে হয়?</h2>
+                <textarea id="ans3" placeholder="এক কথায় উত্তর দাও..."></textarea>
+                <button class="glow-btn" onclick="calculateMatch()">সালামি চেক করো 🧧</button>
+            </div>
         </div>
 
-        <div id="step-3" class="step">
-            <h2 class="q-title">৩. আমাকে তোমার কেমন মনে হয়?</h2>
-            <div class="input-box">
-                <textarea id="ans3" placeholder="মন খুলে সত্যিটা লেখো..."></textarea>
-            </div>
-            <button class="finish-btn" onclick="calculateResult()">সালামি দাবি করুন 🧧</button>
-        </div>
-
-        <div id="result" class="step">
-            <h1 class="congrats">ফলাফল!</h1>
-            <h3 id="finalName"></h3>
-            <div class="salami-box">
+        <div id="result-screen" class="step">
+            <h2 id="match-status">ম্যাচিং রেজাল্ট</h2>
+            <div class="salami-circle">
                 <span class="currency">৳</span>
-                <span id="amount" class="amount">০</span>
+                <span id="final-amount">০</span>
             </div>
-            <div id="personal-note" class="personal-note">
-                </div>
-            <p class="instruction">স্ক্রিনশটটি আমাকে ইনবক্স করো আসল টাকা বুঝে নিতে!</p>
-            <button class="share-btn" onclick="location.reload()">আবার চেষ্টা করো</button>
+            <p id="feedback-msg" class="feedback"></p>
+            <button class="reset-btn" onclick="location.reload()">আবার চেষ্টা করো</button>
         </div>
     </div>
 
