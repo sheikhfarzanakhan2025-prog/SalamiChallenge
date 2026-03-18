@@ -1,62 +1,50 @@
-function goToStep(stepId) {
-    const currentName = document.getElementById('userName').value.trim();
+// আপনার সঠিক উত্তরগুলো এখানে (আপনার পছন্দের সাথে মিলিয়ে)
+const MY_FAV_FOOD = ["lollipop", "লিলিপপ", "ললিপপ"];
+const MY_BIRTH_MONTH = ["september", "সেপ্টেম্বর"];
+
+function nextStep(stepId) {
+    const name = document.getElementById('userName').value;
+    if (name === "") return alert("নাম না দিলে সালামি পাবি না!");
     
-    // নাম ছাড়া সামনে যাওয়া যাবে না
-    if (stepId === 'step-1' && currentName === "") {
-        alert("আগে তোমার নামটা বলো! 😊");
-        return;
-    }
-
-    // সব স্টেপ লুকাও
-    const steps = document.querySelectorAll('.step');
-    steps.forEach(s => s.classList.remove('active'));
-
-    // টার্গেট স্টেপ দেখাও
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
     document.getElementById(stepId).classList.add('active');
 }
 
-function calculateResult() {
-    const name = document.getElementById('userName').value.trim();
+function showNextQ(qNum) {
+    document.querySelectorAll('.question-box').forEach(q => q.style.display = 'none');
+    document.getElementById('q' + qNum).style.display = 'block';
+    
+    // Progress bar update
+    document.getElementById('progress').style.width = (qNum * 33) + "%";
+}
+
+function calculateMatch() {
     const ans1 = document.getElementById('ans1').value.toLowerCase().trim();
     const ans2 = document.getElementById('ans2').value.toLowerCase().trim();
-    const ans3 = document.getElementById('ans3').value.trim();
+    
+    let matchCount = 0;
 
-    if (ans1 === "" || ans2 === "" || ans3 === "") {
-        alert("সবগুলো প্রশ্নের উত্তর দাও! ফাঁকিবাজি চলবে না।");
-        return;
-    }
-
-    let score = 0;
-
-    // কন্ডিশন ১: প্রিয় খাবার (লিলিপপ)
-    if (ans1.includes("lollipop") || ans1.includes("লিলিপপ") || ans1.includes("ললিপপ")) {
-        score++;
-    }
-
-    // কন্ডিশন ২: জন্মদিন (সেপ্টেম্বর)
-    if (ans2.includes("september") || ans2.includes("সেপ্টেম্বর")) {
-        score++;
-    }
+    // খাবার ম্যাচিং লজিক
+    if (MY_FAV_FOOD.some(food => ans1.includes(food))) matchCount++;
+    
+    // মাস ম্যাচিং লজিক
+    if (MY_BIRTH_MONTH.some(month => ans2.includes(month))) matchCount++;
 
     // রেজাল্ট দেখানো
-    const steps = document.querySelectorAll('.step');
-    steps.forEach(s => s.classList.remove('active'));
-    document.getElementById('result').classList.add('active');
-    
-    document.getElementById('finalName').innerText = "প্রিয় " + name + ",";
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('result-screen').classList.add('active');
 
-    const amountEl = document.getElementById('amount');
-    const noteEl = document.getElementById('personal-note');
+    const amountEl = document.getElementById('final-amount');
+    const msgEl = document.getElementById('feedback-msg');
 
-    // আপনার দেওয়া কন্ডিশন অনুযায়ী মেসেজ
-    if (score === 2) {
+    if (matchCount === 2) {
         amountEl.innerText = "১০০০";
-        noteEl.innerHTML = "<b>The Expert:</b> ওয়াও! আপনি তো আমাকে আমার চেয়েও বেশি চেনেন। আপনার জন্য স্পেশাল সালামি: ৳১০০০।";
-    } else if (score === 1) {
+        msgEl.innerHTML = "<b>The Expert:</b> ওয়াও! আমাদের পছন্দ হুবহু মিলে গেছে। আপনি আমাকে আমার চেয়েও বেশি চেনেন!";
+    } else if (matchCount === 1) {
         amountEl.innerText = "৫০";
-        noteEl.innerHTML = "<b>The Friendly Neighbor:</b> আরেকটু চেষ্টা করলেই হতো! আপনার জন্য সান্ত্বনা পুরস্কার সালামি: ৳৫০।";
+        msgEl.innerHTML = "<b>The Friendly Neighbor:</b> আমাদের পছন্দ কিছুটা মিলেছে। আরও ভালো করে চেনার চেষ্টা করুন!";
     } else {
         amountEl.innerText = "০";
-        noteEl.innerHTML = "<b>The Stranger:</b> ভাই/বোন, আপনি কি ভুল করে আমার ওয়েবসাইটে ঢুকেছেন? আপনার জন্য সালামি: ৳০ (জিরো)। আগে আমাকে চিনুন, তারপর সালামি!";
+        msgEl.innerHTML = "<b>The Stranger:</b> আমাদের পছন্দে কোনো মিল নেই! আপনি কি আসলেই আমাকে চেনেন?";
     }
 }
