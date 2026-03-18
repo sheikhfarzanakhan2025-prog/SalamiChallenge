@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salami Challenge | প্রিমিয়াম ঈদ সালামি</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="glow-effect"></div>
+
+    <div class="container">
+        <div id="quiz-form">
+            <div class="header">
+                <h1>Salami Challenge</h1>
+                <p>সব উত্তর নিজের ভাষায় লিখুন এবং সালামি জিতে নিন!</p>
+            </div>
+
+            <div class="form-group">
+                <label>আপনার নাম (Name)</label>
+                <input type="text" id="name" placeholder="এখানে নাম লিখুন...">
+            </div>
+
+            <div class="form-group">
+                <label>১. আমার প্রিয় খাবার কী?</label>
+                <textarea id="q1" rows="2" placeholder="আপনার উত্তর টাইপ করুন..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>২. আমার জন্মদিন কোন মাসে?</label>
+                <input type="text" id="q2" placeholder="মাসের নাম লিখুন...">
+            </div>
+
+            <div class="form-group">
+                <label>৩. আমাকে আপনার কাছে কেমন মনে হয়?</label>
+                <textarea id="q3" rows="3" placeholder="মন খুলে আপনার মতামত লিখুন..."></textarea>
+            </div>
+
+            <button class="btn-submit" onclick="showSalami()">সালামি বুঝে নিন 🎁</button>
+        </div>
+
+        <div id="result-section" style="display: none;">
+            <div class="success-icon">🌙</div>
+            <h2 id="userNameDisplay"></h2>
+            <p class="sub-text">আপনার উত্তরগুলো চমৎকার ছিল!</p>
+            
+            <div class="salami-amount">৳ ৫১২</div>
+            
+            <div class="note-card">
+                "সালামি একটি উছিলা মাত্র, আসলে আপনার ভালোবাসাটাই আসল। ঈদ মোবারক!"
+            </div>
+
+            <p class="instruction">স্ক্রিনশটটি আমাকে ইনবক্স করুন এবং সালামি বুঝে নিন।</p>
+            <button class="btn-reset" onclick="resetPage()">আবার শুরু করুন</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
