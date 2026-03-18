@@ -3,59 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salami Challenge | প্রিমিয়াম ঈদ সালামি</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-    
+    <title>EID SALAMI | দ্য আল্টিমেট চ্যালেঞ্জ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;500;700&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="glow-effect"></div>
+    <div class="neon-circle"></div>
+    <div class="neon-circle-2"></div>
 
-    <div class="container">
-        <div id="quiz-form">
-            <div class="header">
-                <h1>Salami Challenge</h1>
-                <p>সব উত্তর নিজের ভাষায় লিখুন এবং সালামি জিতে নিন!</p>
+    <div class="glass-card">
+        <div id="setup-step" class="step active">
+            <h1 class="glitch">EID SALAMI</h1>
+            <p class="subtitle">সালামি পাওয়ার আগে প্রমাণ দাও তুমি আমাকে চেনো!</p>
+            <div class="input-box">
+                <input type="text" id="userName" required>
+                <span>তোমার নাম লেখো</span>
             </div>
-
-            <div class="form-group">
-                <label>আপনার নাম (Name)</label>
-                <input type="text" id="name" placeholder="এখানে নাম লিখুন...">
-            </div>
-
-            <div class="form-group">
-                <label>১. আমার প্রিয় খাবার কী?</label>
-                <textarea id="q1" rows="2" placeholder="আপনার উত্তর টাইপ করুন..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>২. আমার জন্মদিন কোন মাসে?</label>
-                <input type="text" id="q2" placeholder="মাসের নাম লিখুন...">
-            </div>
-
-            <div class="form-group">
-                <label>৩. আমাকে আপনার কাছে কেমন মনে হয়?</label>
-                <textarea id="q3" rows="3" placeholder="মন খুলে আপনার মতামত লিখুন..."></textarea>
-            </div>
-
-            <button class="btn-submit" onclick="showSalami()">সালামি বুঝে নিন 🎁</button>
+            <button class="next-btn" onclick="goToStep('step-1')">শুরু করি →</button>
         </div>
 
-        <div id="result-section" style="display: none;">
-            <div class="success-icon">🌙</div>
-            <h2 id="userNameDisplay"></h2>
-            <p class="sub-text">আপনার উত্তরগুলো চমৎকার ছিল!</p>
-            
-            <div class="salami-amount">৳ ৫১২</div>
-            
-            <div class="note-card">
-                "সালামি একটি উছিলা মাত্র, আসলে আপনার ভালোবাসাটাই আসল। ঈদ মোবারক!"
+        <div id="step-1" class="step">
+            <h2 class="q-title">১. আমার প্রিয় খাবার কী?</h2>
+            <div class="input-box">
+                <textarea id="ans1" placeholder="তোমার উত্তর টাইপ করো..."></textarea>
             </div>
+            <button class="next-btn" onclick="goToStep('step-2')">পরের প্রশ্ন</button>
+        </div>
 
-            <p class="instruction">স্ক্রিনশটটি আমাকে ইনবক্স করুন এবং সালামি বুঝে নিন।</p>
-            <button class="btn-reset" onclick="resetPage()">আবার শুরু করুন</button>
+        <div id="step-2" class="step">
+            <h2 class="q-title">২. আমার জন্মদিন কোন মাসে?</h2>
+            <div class="input-box">
+                <input type="text" id="ans2" placeholder="মাসের নাম লেখো...">
+            </div>
+            <button class="next-btn" onclick="goToStep('step-3')">শেষ প্রশ্ন</button>
+        </div>
+
+        <div id="step-3" class="step">
+            <h2 class="q-title">৩. আমাকে তোমার কেমন মনে হয়?</h2>
+            <div class="input-box">
+                <textarea id="ans3" placeholder="মন খুলে সত্যিটা লেখো..."></textarea>
+            </div>
+            <button class="finish-btn" onclick="calculateResult()">সালামি দাবি করুন 🧧</button>
+        </div>
+
+        <div id="result" class="step">
+            <h1 class="congrats">ফলাফল!</h1>
+            <h3 id="finalName"></h3>
+            <div class="salami-box">
+                <span class="currency">৳</span>
+                <span id="amount" class="amount">০</span>
+            </div>
+            <div id="personal-note" class="personal-note">
+                </div>
+            <p class="instruction">স্ক্রিনশটটি আমাকে ইনবক্স করো আসল টাকা বুঝে নিতে!</p>
+            <button class="share-btn" onclick="location.reload()">আবার চেষ্টা করো</button>
         </div>
     </div>
 
