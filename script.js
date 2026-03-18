@@ -1,50 +1,53 @@
-// আপনার সঠিক উত্তরগুলো এখানে (আপনার পছন্দের সাথে মিলিয়ে)
-const MY_FAV_FOOD = ["lollipop", "লিলিপপ", "ললিপপ"];
-const MY_BIRTH_MONTH = ["september", "সেপ্টেম্বর"];
-
-function nextStep(stepId) {
+function startSystem() {
     const name = document.getElementById('userName').value;
-    if (name === "") return alert("নাম না দিলে সালামি পাবি না!");
+    if(name === "") return alert("SYSTEM ERROR: PLEASE ENTER ACCESS NAME");
     
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById(stepId).classList.add('active');
+    document.getElementById('start-node').classList.remove('active');
+    document.getElementById('q1-node').classList.add('active');
 }
 
-function showNextQ(qNum) {
-    document.querySelectorAll('.question-box').forEach(q => q.style.display = 'none');
-    document.getElementById('q' + qNum).style.display = 'block';
-    
-    // Progress bar update
-    document.getElementById('progress').style.width = (qNum * 33) + "%";
+function nextStep(nodeId) {
+    document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
+    document.getElementById(nodeId).classList.add('active');
 }
 
-function calculateMatch() {
-    const ans1 = document.getElementById('ans1').value.toLowerCase().trim();
-    const ans2 = document.getElementById('ans2').value.toLowerCase().trim();
-    
-    let matchCount = 0;
+function processResult() {
+    const name = document.getElementById('userName').value;
+    const ans1 = document.getElementById('ans1').value.toLowerCase();
+    const ans2 = document.getElementById('ans2').value.toLowerCase();
 
-    // খাবার ম্যাচিং লজিক
-    if (MY_FAV_FOOD.some(food => ans1.includes(food))) matchCount++;
-    
-    // মাস ম্যাচিং লজিক
-    if (MY_BIRTH_MONTH.some(month => ans2.includes(month))) matchCount++;
+    // MATCH LOGIC
+    const favFood = (ans1.includes("lollipop") || ans1.includes("লিলিপপ") || ans1.includes("ললিপপ"));
+    const favMonth = (ans2.includes("september") || ans2.includes("সেপ্টেম্বর"));
 
-    // রেজাল্ট দেখানো
-    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-    document.getElementById('result-screen').classList.add('active');
+    nextStep('result-node');
+    document.getElementById('final-cash').innerText = "0"; // Counter animation logic follows
 
-    const amountEl = document.getElementById('final-amount');
-    const msgEl = document.getElementById('feedback-msg');
+    let finalAmount = 0;
+    let message = "";
 
-    if (matchCount === 2) {
-        amountEl.innerText = "১০০০";
-        msgEl.innerHTML = "<b>The Expert:</b> ওয়াও! আমাদের পছন্দ হুবহু মিলে গেছে। আপনি আমাকে আমার চেয়েও বেশি চেনেন!";
-    } else if (matchCount === 1) {
-        amountEl.innerText = "৫০";
-        msgEl.innerHTML = "<b>The Friendly Neighbor:</b> আমাদের পছন্দ কিছুটা মিলেছে। আরও ভালো করে চেনার চেষ্টা করুন!";
+    if (favFood && favMonth) {
+        finalAmount = 1000;
+        message = "ওয়াও! " + name + ", আপনি তো আমাকে আমার চেয়েও বেশি চেনেন। আপনার জন্য স্পেশাল সালামি!";
+    } else if (favFood || favMonth) {
+        finalAmount = 50;
+        message = name + ", আমাদের পছন্দ কিছুটা মিলেছে। আরেকটু চেষ্টা করলে হয়তো ১০০০ পেতে পারতেন!";
     } else {
-        amountEl.innerText = "০";
-        msgEl.innerHTML = "<b>The Stranger:</b> আমাদের পছন্দে কোনো মিল নেই! আপনি কি আসলেই আমাকে চেনেন?";
+        finalAmount = 0;
+        message = "সরি " + name + ", আপনি কি ভুল করে আমার ওয়েবসাইটে ঢুকেছেন? আগে আমাকে চিনুন, তারপর সালামি!";
     }
+
+    // Money Count Animation
+    let count = 0;
+    let timer = setInterval(() => {
+        if(count >= finalAmount) {
+            clearInterval(timer);
+        } else {
+            count += (finalAmount === 1000) ? 20 : 2;
+            document.getElementById('final-cash').innerText = count;
+        }
+    }, 30);
+
+    document.getElementById('final-msg').innerText = message;
 }
+
